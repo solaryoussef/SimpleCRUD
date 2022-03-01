@@ -1,0 +1,72 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="Scripts/jquery-3.5.1.js"></script>
+    <script src="Scripts/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#records_table').DataTable();
+        });
+       
+           $.ajax({
+                url: 'http://localhost:51945/api/employees',
+                method: 'GET',
+                success: function (data) {
+                        var trHTML = '';
+                    $.each(data, function (i, item) {
+                        trHTML += '<tr><td>' + item.empId + '</td><td>' + item.empName + '</td><td>' + item.department + '</td><td>' + item.dateOfJoining + '</td></tr> '
+                        })
+                        $('#records_table').append(trHTML);
+                    },
+                error: function () {
+                    alert("error")
+                     }
+                 });
+
+        //function add() {
+        //    var o = {
+        //        empId: $("#id").val(),
+        //        empName: $("#name").val(),
+        //        dateOfJoining: $("#dateofjoining").val(),
+        //        department: $("#department").val(),
+               
+        //    }
+
+        //    $.ajax({
+        //        url: 'http://localhost:1212/api/employees',
+        //        method: 'POST',
+        //        data: JSON.stringify(o),
+        //        contentType: 'application/json',
+        //        success: function (data) {
+        //            alert(JSON.stringify(data));
+        //        },
+        //        error: function (er) {
+        //            alert(er.statusText)
+        //        }
+        //    })
+        //}
+    </script>
+</head>
+<body>
+    <h1 style="text-align:center;">Welcome to employees portal</h1>
+    <br />
+    <div>
+        <table id="records_table" class="stripe" style="width:100%; table-layout:auto">
+            <thead>
+                <tr>
+                    <th id="id">ID</th>
+
+                    <th id="name">First name</th>
+                    <th id="department">department</th>
+                    <th id="dateofjoining">date of joining</th>
+                </tr>
+            </thead>
+        </table>
+       
+      <!--  <input type="button" onclick="add()" value="add" />-->
+       
+    </div>
+</body>
+</html>
